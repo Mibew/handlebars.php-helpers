@@ -13,20 +13,23 @@ namespace JustBlackBird\HandlebarsHelpers\Comparison;
 use Handlebars\Helper as HelperInterface;
 
 /**
- * Conditional helper that checks if two values are equal or not.
+ * Conditional helper that checks if one value is less than another one.
+ *
+ * By "less" strict inequality is meant. That's why in cases where two equal
+ * values are compared the result of the "less" operation is false.
  *
  * Example of usage:
  * ```handlebars
- *   {{#unlessEqual first second}}
- *     The first argument is equal to the second one.
+ *   {{#ifLess first second}}
+ *     The first argument is less than the second one.
  *   {{else}}
- *     The arguments are not equal.
- *   {{/unlessEqual}}
+ *     The first argument is more or equal to the second one.
+ *   {{/ifLess}}
  * ```
  *
  * @author Dmitriy Simushev <simushevds@gmail.com>
  */
-class UnlessEqualHelper extends AbstractComparisonHelper implements HelperInterface
+class IfLessHelper extends AbstractComparisonHelper implements HelperInterface
 {
     /**
      * {@inheritdoc}
@@ -35,10 +38,10 @@ class UnlessEqualHelper extends AbstractComparisonHelper implements HelperInterf
     {
         if (count($args) != 2) {
             throw new \InvalidArgumentException(
-                '"unlessEqual" helper expects exactly two arguments.'
+                '"ifLess" helper expects exactly two arguments.'
             );
         }
 
-        return ($args[0] != $args[1]);
+        return ($args[0] < $args[1]);
     }
 }

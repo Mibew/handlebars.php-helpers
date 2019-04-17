@@ -8,43 +8,43 @@
  * file that was distributed with this source code.
  */
 
-namespace JustBlackBird\HandlebarsHelpers\Tests\String;
+namespace JustBlackBird\HandlebarsHelpers\Tests\Text;
 
-use JustBlackBird\HandlebarsHelpers\String\TruncateHelper;
+use JustBlackBird\HandlebarsHelpers\Text\EllipsisHelper;
 
 /**
- * Test class for "truncate" helper.
+ * Test class for "ellipsis" helper.
  *
- * @author Dmitriy Simushev <simushevds@gmail.com>
+ * @author Matteo Merola <mattmezza@gmail.com>
  */
-class TruncateTest extends \PHPUnit_Framework_TestCase
+class EllipsisTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests that strings are repeated properly.
      *
      * @dataProvider truncateProvider
      */
-    public function testTruncate($template, $data, $result)
+    public function testEllipsis($template, $data, $result)
     {
-        $helpers = new \Handlebars\Helpers(array('truncate' => new TruncateHelper()));
+        $helpers = new \Handlebars\Helpers(array('ellipsis' => new EllipsisHelper()));
         $engine = new \Handlebars\Handlebars(array('helpers' => $helpers));
 
         $this->assertEquals($engine->render($template, $data), $result);
     }
 
     /**
-     * A data provider for testTruncate method.
+     * A data provider for testEllipsis method.
      */
     public function truncateProvider()
     {
         return array(
             // No truncate
-            array('{{truncate a len}}', array('a' => '123', 'len' => 5), '123'),
+            array('{{ellipsis a len}}', array('a' => '123', 'len' => 5), '123'),
             // Simple truncates
-            array('{{truncate "0123456789" 5}}', array(), '01234'),
-            array('{{truncate "0123456789" 0}}', array(), ''),
+            array('{{ellipsis "prova matteo ciao" 2}}', array(), 'prova matteo'),
+            array('{{ellipsis "prova merola hello" 0}}', array(), ''),
             // Truncate with ellipsis
-            array('{{truncate "0123456789" 5 "..."}}', array(), '01...'),
+            array('{{ellipsis "prova matt" 1 "..."}}', array(), 'prova...'),
         );
     }
 
@@ -56,7 +56,7 @@ class TruncateTest extends \PHPUnit_Framework_TestCase
      */
     public function testArgumentsCount($template)
     {
-        $helpers = new \Handlebars\Helpers(array('truncate' => new TruncateHelper()));
+        $helpers = new \Handlebars\Helpers(array('ellipsis' => new EllipsisHelper()));
         $engine = new \Handlebars\Handlebars(array('helpers' => $helpers));
 
         $engine->render($template, array());
@@ -69,10 +69,10 @@ class TruncateTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             // Not enough arguments
-            array('{{truncate}}'),
-            array('{{truncate "abc"}}'),
+            array('{{ellipsis}}'),
+            array('{{ellipsis "abc"}}'),
             // Too much arguments
-            array('{{truncate "abc" 30 "..." "xyz"}}'),
+            array('{{ellipsis "abc" 30 "..." "xyz"}}'),
         );
     }
 
@@ -84,7 +84,7 @@ class TruncateTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidArguments($template)
     {
-        $helpers = new \Handlebars\Helpers(array('truncate' => new TruncateHelper()));
+        $helpers = new \Handlebars\Helpers(array('ellipsis' => new EllipsisHelper()));
         $engine = new \Handlebars\Handlebars(array('helpers' => $helpers));
 
         $engine->render($template, array());
@@ -97,9 +97,7 @@ class TruncateTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             // Negative target length.
-            array('{{truncate "abc" -10}}'),
-            // Length of ellipsis is greater than target length.
-            array('{{truncate "abc" 2 "..."}}')
+            array('{{ellipsis "abc" -10}}'),
         );
     }
 }

@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace JustBlackBird\HandlebarsHelpers\String;
+namespace JustBlackBird\HandlebarsHelpers\Collection;
 
 use Handlebars\Helpers as BaseHelpers;
 
 /**
- * Contains all strings related helpers.
+ * Contains all collections related helpers.
  *
  * @author Dmitriy Simushev <simushevds@gmail.com>
  */
@@ -26,10 +26,8 @@ class Helpers extends BaseHelpers
     {
         parent::addDefaultHelpers();
 
-        $this->add('lowercase', new LowercaseHelper());
-        $this->add('uppercase', new UppercaseHelper());
-        $this->add('repeat', new RepeatHelper());
-        $this->add('replace', new ReplaceHelper());
-        $this->add('truncate', new TruncateHelper());
+        $this->add('count', new CountHelper());
+        $this->add('first', new FirstHelper());
+        $this->add('last', new LastHelper());
     }
 }

@@ -8,26 +8,27 @@
  * file that was distributed with this source code.
  */
 
-namespace JustBlackBird\HandlebarsHelpers\String;
+namespace JustBlackBird\HandlebarsHelpers\Collection;
 
 use Handlebars\Context;
 use Handlebars\Helper as HelperInterface;
 use Handlebars\Template;
 
 /**
- * Converts a string to uppercase.
+ * Returns count of items of the collection.
  *
  * Usage:
  * ```handlebars
- *   {{uppercase string}}
+ *   {{count collection}}
  * ```
  *
  * Arguments:
- *  - "string": A string that should be converted to uppercase.
+ *  - "collection": an array or an instance of \Countable which elements should
+ *    be counted.
  *
  * @author Dmitriy Simushev <simushevds@gmail.com>
  */
-class UppercaseHelper implements HelperInterface
+class CountHelper implements HelperInterface
 {
     /**
      * {@inheritdoc}
@@ -37,10 +38,15 @@ class UppercaseHelper implements HelperInterface
         $parsed_args = $template->parseArguments($args);
         if (count($parsed_args) != 1) {
             throw new \InvalidArgumentException(
-                '"uppercase" helper expects exactly one argument.'
+                '"last" helper expects exactly one argument.'
             );
         }
 
-        return strtoupper($context->get($parsed_args[0]));
+        $collection = $context->get($parsed_args[0]);
+        if (!is_array($collection) && !($collection instanceof \Countable)) {
+            throw new \InvalidArgumentException('Wrong type of the argument in the "count" helper.');
+        }
+
+        return count($collection);
     }
 }

@@ -29,6 +29,11 @@ class Helpers extends BaseHelpers
         // Date helpers
         $this->add('formatDate', new Date\FormatDateHelper());
 
+        // Collection helpers
+        $this->add('count', new Collection\CountHelper());
+        $this->add('first', new Collection\FirstHelper());
+        $this->add('last', new Collection\LastHelper());
+
         // Comparison helpers
         $this->add('ifAny', new Comparison\IfAnyHelper());
         $this->add('ifEqual', new Comparison\IfEqualHelper());
@@ -36,12 +41,13 @@ class Helpers extends BaseHelpers
         $this->add('ifOdd', new Comparison\IfOddHelper());
         $this->add('unlessEqual', new Comparison\UnlessEqualHelper());
 
-        // String helpers
-        $this->add('lowercase', new String\LowercaseHelper());
-        $this->add('uppercase', new String\UppercaseHelper());
-        $this->add('repeat', new String\RepeatHelper());
-        $this->add('replace', new String\ReplaceHelper());
-        $this->add('truncate', new String\TruncateHelper());
+        // Text helpers
+        $this->add('lowercase', new Text\LowercaseHelper());
+        $this->add('uppercase', new Text\UppercaseHelper());
+        $this->add('repeat', new Text\RepeatHelper());
+        $this->add('replace', new Text\ReplaceHelper());
+        $this->add('truncate', new Text\TruncateHelper());
+        $this->add('ellipsis', new Text\EllipsisHelper());
 
         // Layout helpers
         $storage = new Layout\BlockStorage();
