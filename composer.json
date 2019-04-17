@@ -1,6 +1,6 @@
 {
     "name": "mibew/handlebars.php-helpers",
-    "version": "1.2.1",
+    "version": "1.2.3",
     "description": "A set of helpers for Handlebars.php template engine.",
     "type": "library",
     "license": "MIT",
